@@ -3,47 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Engineer Portfolio | [본인 성함]</title>
+    <title>AI Engineer Portfolio</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     <style>
+        /* 라이트 테마 색상 변수 정의 */
         :root {
-            --primary-color: #007aff;
-            --bg-dark: #0a0c10;
-            --card-bg: #161b22;
-            --text-main: #e6edf3;
-            --text-dim: #8b949e;
+            --primary-color: #2563eb; /* 선명한 파란색 포인트 */
+            --bg-body: #f8fafc;       /* 아주 연한 회색 배경 */
+            --bg-white: #ffffff;      /* 순수 흰색 (카드, 네비게이션) */
+            --text-main: #1e293b;     /* 진한 텍스트 (가독성) */
+            --text-muted: #64748b;    /* 부드러운 보조 텍스트 */
+            --border-light: #e2e8f0;  /* 연한 테두리 */
+            --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Pretendard', -apple-system, sans-serif;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-body);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
         /* 반응형 컨테이너 */
         .container {
-            max-width: 1000px;
+            max-width: 1024px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
-        /* 네비게이션 */
+        /* 네비게이션바 */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 12, 16, 0.8);
+            background: rgba(255, 255, 255, 0.9); /* 반투명 흰색 */
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid #30363d;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
         }
 
         nav .container {
@@ -53,23 +59,30 @@
             height: 70px;
         }
 
+        .logo {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 24px;
         }
 
         .nav-links a {
-            color: var(--text-main);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
         }
 
-        /* 히어로 섹션 */
+        /* 히어로 섹션 (메인 타이틀) */
         header {
             height: 100vh;
             display: flex;
@@ -77,29 +90,49 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, #1d2b4a 0%, #0a0c10 100%);
+            /* 밝고 깨끗한 그라데이션 배경 */
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 0 20px;
         }
 
         .hero-title {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, #007aff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            line-height: 1.2;
         }
 
         .hero-tag {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
         }
 
-        /* 섹션 공통 */
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8; /* 호버 시 약간 더 진한 파랑 */
+            transform: translateY(-2px);
+        }
+
+        /* 섹션 공통 스타일 */
         section {
-            padding: 100px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            padding: 120px 0;
+            opacity: 0; /* 스크롤 애니메이션 초기 상태 */
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         section.visible {
@@ -108,91 +141,183 @@
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 2.25rem;
+            font-weight: 700;
             margin-bottom: 3rem;
-            border-left: 5px solid var(--primary-color);
-            padding-left: 15px;
+            text-align: center;
+            color: var(--text-main);
+        }
+
+        /* About 섹션 */
+        .about-content {
+            background: var(--bg-white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .highlights {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .highlight-badge {
+            background: #eff6ff;
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         /* 기술 스택 카드 */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
         }
 
         .skill-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #30363d;
-            transition: 0.3s;
+            background: var(--bg-white);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            text-align: center;
         }
 
         .skill-card:hover {
             border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
             transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
         }
 
         /* 프로젝트 카드 */
         .project-card {
-            background: var(--card-bg);
-            border-radius: 15px;
+            background: var(--bg-white);
+            border-radius: 16px;
             overflow: hidden;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             display: flex;
             flex-direction: column;
-            border: 1px solid #30363d;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-md);
         }
 
         @media (min-width: 768px) {
             .project-card { flex-direction: row; }
-            .project-img { width: 40%; }
+            .project-img { width: 40%; min-height: auto; }
         }
 
         .project-img {
-            background: #21262d;
-            min-height: 200px;
+            background: #f1f5f9; /* 밝은 회색 배경 Placeholder */
+            min-height: 240px;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--primary-color); /* 아이콘 색상 */
         }
 
         .project-info {
-            padding: 30px;
+            padding: 32px;
             flex: 1;
+        }
+
+        .tech-stack {
+            margin-bottom: 16px;
         }
 
         .tech-tag {
             display: inline-block;
-            background: #1f6feb;
-            padding: 4px 12px;
+            background: #eff6ff; /* 아주 연한 파랑 배경 */
+            color: var(--primary-color); /* 파란색 글씨 */
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
         }
 
-        /* 연락처 */
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-link:hover { text-decoration: underline; }
+
+        /* 연락처 및 푸터 */
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            font-size: 2rem;
+            gap: 40px;
+            font-size: 2.5rem;
+            margin-top: 2rem;
         }
 
         .contact-links a {
-            color: var(--text-main);
+            color: var(--text-muted);
             transition: 0.3s;
         }
 
-        .contact-links a:hover { color: var(--primary-color); }
+        .contact-links a:hover { color: var(--primary-color); transform: scale(1.1); }
 
         footer {
             text-align: center;
-            padding: 50px 0;
-            color: var(--text-dim);
-            font-size: 0.8rem;
+            padding: 60px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: var(--bg-body);
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* 모바일 대응 미디어 쿼리 */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-tag { font-size: 1.1rem; }
+            nav .container { padding: 0 20px; }
+            .nav-links { display: none; } /* 모바일에서 메뉴 숨김 (필요시 햄버거 메뉴 구현) */
+            section { padding: 80px 0; }
         }
     </style>
 </head>
@@ -200,7 +325,7 @@
 
     <nav>
         <div class="container">
-            <div style="font-weight: bold; font-size: 1.2rem;">AI PORTFOLIO</div>
+            <div class="logo">AI Portfolio.</div>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
@@ -211,102 +336,127 @@
     </nav>
 
     <header>
-        <h1 class="hero-title">안녕하세요, [본인 성함]입니다.</h1>
-        <p class="hero-tag">정보통신공학 기반의 데이터 통찰력을 갖춘 AI 엔지니어 지망생</p>
-        <div class="nav-links">
-            <a href="#projects" style="background: var(--primary-color); padding: 10px 25px; border-radius: 5px;">프로젝트 보기</a>
-        </div>
+        <h1 class="hero-title">
+            데이터로 가치를 만드는<br>
+            AI 엔지니어입니다.
+        </h1>
+        <p class="hero-tag">
+            정보통신공학적 하드웨어 이해와 최신 딥러닝 기술을 결합하여<br>
+            실현 가능한 AI 솔루션을 설계합니다.
+        </p>
+        <a href="#projects" class="btn-primary">프로젝트 보기</a>
     </header>
 
-    <div class="container">
+    <main class="container">
         <section id="about">
             <h2>About Me</h2>
-            <p style="font-size: 1.1rem; color: var(--text-dim);">
-                정보통신공학부에서 하드웨어와 통신의 기초를 다졌고, AI 전문 교육 과정을 통해 딥러닝과 데이터 분석 역량을 강화했습니다.<br><br>
-                🎓 <b>학력:</b> [대학교 명] 정보통신공학부 졸업<br>
-                📚 <b>수료:</b> [AI 교육과정 명] 수료 (6개월/000시간)
-            </p>
+            <div class="about-content">
+                <p class="about-text">
+                    정보통신공학부에서 통신 및 시스템의 기본기를 다지고, 전문 AI 교육 과정을 통해 데이터 분석과 모델링 역량을 확보했습니다. 단순한 모델 개발을 넘어, 실제 시스템에 효율적으로 적용될 수 있는 엔지니어링 관점의 AI를 지향합니다.
+                </p>
+                <div class="highlights">
+                    <span class="highlight-badge">📡 정보통신공학 전공</span>
+                    <span class="highlight-badge">🤖 AI 전문과정 수료</span>
+                    <span class="highlight-badge">💡 문제 해결 중심</span>
+                </div>
+            </div>
         </section>
 
         <section id="skills">
             <h2>Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <i class="fab fa-python" style="font-size: 2rem; color: #3776ab; margin-bottom: 15px;"></i>
-                    <h3>Language</h3>
-                    <p>Python, C/C++, SQL</p>
+                    <i class="fab fa-python skill-icon" style="color: #3776ab;"></i>
+                    <h3>Languages & Basics</h3>
+                    <p style="color: var(--text-muted);">Python, C/C++, SQL<br>Linux, Git</p>
                 </div>
                 <div class="skill-card">
-                    <i class="fas fa-brain" style="font-size: 2rem; color: #ff6f00; margin-bottom: 15px;"></i>
-                    <h3>AI Framework</h3>
-                    <p>PyTorch, TensorFlow, Scikit-learn</p>
+                    <i class="fas fa-brain skill-icon" style="color: #ef6c00;"></i>
+                    <h3>AI & Deep Learning</h3>
+                    <p style="color: var(--text-muted);">PyTorch, TensorFlow<br>Scikit-learn</p>
                 </div>
                 <div class="skill-card">
-                    <i class="fas fa-database" style="font-size: 2rem; color: #00758f; margin-bottom: 15px;"></i>
+                    <i class="fas fa-chart-pie skill-icon" style="color: #00897b;"></i>
                     <h3>Data Science</h3>
-                    <p>Pandas, NumPy, Matplotlib, OpenCV</p>
+                    <p style="color: var(--text-muted);">Pandas, NumPy, Matplotlib<br>OpenCV (Vision)</p>
                 </div>
             </div>
         </section>
 
         <section id="projects">
-            <h2>AI Projects</h2>
+            <h2>Featured Projects</h2>
             
             <div class="project-card">
                 <div class="project-img">
-                    <i class="fas fa-robot" style="font-size: 4rem;"></i>
+                    <i class="fas fa-camera-retro fa-4x"></i>
                 </div>
                 <div class="project-info">
-                    <span class="tech-tag">Deep Learning</span>
-                    <span class="tech-tag">Computer Vision</span>
-                    <h3>이미지 인식 기반 지능형 시스템</h3>
-                    <p style="color: var(--text-dim); margin: 15px 0;">
-                        OpenCV와 PyTorch를 활용하여 실시간 사물을 감지하고 분류하는 모델을 개발했습니다. mAP 0.00 달성.
+                    <div class="tech-stack">
+                        <span class="tech-tag">Computer Vision</span>
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">OpenCV</span>
+                    </div>
+                    <h3>실시간 객체 탐지 및 경량화 모델</h3>
+                    <p class="project-desc">
+                        YOLO 계열 모델을 활용하여 실시간으로 사물을 탐지하는 시스템을 구축했습니다. Jetson Nano와 같은 엣지 디바이스 탑재를 목표로 모델 가지치기(Pruning) 기법을 적용하여 추론 속도를 30% 향상시켰습니다.
                     </p>
-                    <a href="#" style="color: var(--primary-color); text-decoration: none;">GitHub 상세 보기 →</a>
+                    <a href="#" class="btn-link">GitHub 저장소 <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
             <div class="project-card">
                 <div class="project-img">
-                    <i class="fas fa-chart-line" style="font-size: 4rem;"></i>
+                     <i class="fas fa-comments fa-4x"></i>
                 </div>
                 <div class="project-info">
-                    <span class="tech-tag">NLP</span>
-                    <span class="tech-tag">BERT</span>
-                    <h3>감성 분석 기반 챗봇 서비스</h3>
-                    <p style="color: var(--text-dim); margin: 15px 0;">
-                        자연어 처리 기술을 활용해 사용자 리뷰 데이터를 분석하고, 긍정/부정 응답을 생성하는 모델을 구축했습니다.
+                    <div class="tech-stack">
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">Transformers</span>
+                        <span class="tech-tag">FastAPI</span>
+                    </div>
+                    <h3>고객 리뷰 감성 분석 API 서비스</h3>
+                    <p class="project-desc">
+                        BERT 기반의 사전 학습 모델을 한국어 리뷰 데이터로 파인튜닝하여 긍정/부정을 분류하는 모델을 개발했습니다. 이를 FastAPI를 활용해 RESTful API 형태로 배포하고 간단한 웹 데모를 구현했습니다.
                     </p>
-                    <a href="#" style="color: var(--primary-color); text-decoration: none;">GitHub 상세 보기 →</a>
+                    <a href="#" class="btn-link">GitHub 저장소 <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>
 
         <section id="contact">
-            <h2 style="text-align: center; border: none;">Get In Touch</h2>
+            <h2>Get In Touch</h2>
+            <p style="text-align: center; color: var(--text-muted);">
+                새로운 기회와 협업에 언제나 열려있습니다.<br>
+                이메일이나 소셜 미디어를 통해 연락 주세요.
+            </p>
             <div class="contact-links">
-                <a href="mailto:yourmail@example.com"><i class="fas fa-envelope"></i></a>
-                <a href="https://github.com"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:your.email@example.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
             </div>
         </section>
-    </div>
+    </main>
 
     <footer>
-        &copy; 2024 [본인성함]. All rights reserved.
+        <div class="container">
+            © 2024 AI Engineer Portfolio. All rights reserved.<br>
+            Designed & Built with HTML/CSS/JS.
+        </div>
     </footer>
 
     <script>
-        // 스크롤 시 섹션 나타나기 효과
+        // 1. 스크롤 시 섹션 부드럽게 나타나기 (Scroll Reveal)
         const observerOptions = {
-            threshold: 0.1
+            root: null,
+            threshold: 0.15, // 섹션이 15% 보일 때 트리거
+            rootMargin: "0px"
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // 한 번 나타나면 관찰 중지 (성능 최적화)
                 }
             });
         }, observerOptions);
@@ -315,13 +465,23 @@
             observer.observe(section);
         });
 
-        // 부드러운 스크롤
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // 2. 네비게이션 링크 클릭 시 부드러운 스크롤 이동
+        document.querySelectorAll('.nav-links a, .btn-primary').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // 네비게이션 높이만큼 빼고 스크롤 위치 계산
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - navHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
